@@ -46,8 +46,10 @@ module Sunspot
       
         def starting
           sleep(1)
-          Net::HTTP.get_response(URI.parse(uri))
-          false
+
+          res = Net::HTTP.get_response(URI.parse(uri + '/admin/ping'))
+
+          res.code != '200'
         rescue Errno::ECONNREFUSED
           true
         end
